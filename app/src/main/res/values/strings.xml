@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">6vfilm</string>
+
+    <!--底部导航栏文本-->
+    <string name="button_navigator_text_index">首页</string>
+    <string name="bottom_navigator_text_category">分类</string>
+    <string name="bottom_navigator_text_my">我的</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+</resources>

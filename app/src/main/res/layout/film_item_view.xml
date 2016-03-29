@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/content_diamonds_bg"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/film_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:text="2016高分动作大片《死侍》720p韩版.HD中英双字"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/film_item_update_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/film_item_title"
+        android:layout_below="@id/film_item_title"
+        android:layout_marginTop="15dp"
+        android:text="3月24"
+        android:textColor="@color/nsw_grey"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/film_item_title"
+        android:layout_toRightOf="@id/film_item_update_time"
+        android:id="@+id/file_item_tag_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginRight="5dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/film_item_title"
+            android:layout_below="@id/film_item_title"
+            android:layout_marginTop="15dp"
+            android:text="热门"
+            android:textColor="@color/hot_tag_color"
+            android:textSize="12sp"
+            android:background="@drawable/hot_tag_bg"/>
+        <TextView
+            android:layout_marginRight="5dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/film_item_title"
+            android:layout_below="@id/film_item_title"
+            android:layout_marginTop="15dp"
+            android:text="推荐"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:background="@drawable/recommend_tag_bg"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

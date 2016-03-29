@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="hot_tag_color">#aaff0000</color>
+    <color name="nsw_grey">#9c9c9c</color>
+    <color name="nsw_light_grey">#EEEEEE</color>
+    <color name="white">#ffffff</color>
+</resources>

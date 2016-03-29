@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--首页按钮背景选择器-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_checked="false" android:drawable="@drawable/film_unselected"></item>
+    <item android:state_checked="true" android:drawable="@drawable/film_selected"></item>
+</selector>
