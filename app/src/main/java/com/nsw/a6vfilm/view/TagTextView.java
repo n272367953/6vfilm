@@ -6,7 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.nsw.a6vfilm.R;
+import com.nsw.a6vfilm.R;   
 
 /**
  * Created by niuge on 2016/3/27.
