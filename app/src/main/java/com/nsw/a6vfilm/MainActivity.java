@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.nsw.a6vfilm.fragment.CategoryFragment;
@@ -23,9 +22,6 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
 
     private FragmentHelper fmHelper;
     private RadioGroup rg;
-    private RadioButton indexRadioBtn;
-    private RadioButton cateRadioBtn;
-    private RadioButton myRadioBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +35,7 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
         fmHelper = new FragmentHelper(this, getSupportFragmentManager(), R.id.main_container);
         rg = (RadioGroup) findViewById(R.id.radioGroup);
         rg.setOnCheckedChangeListener(this);
+         //默认显示首页
         fmHelper.switchFragment(MENU_TAB_1,new Intent(this,IndexFragment.class));
     }
 
