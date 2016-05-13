@@ -3,16 +3,16 @@ package com.nsw.a6vfilm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
+import android.support.v7.widget.Toolbar;
 
 import com.nsw.a6vfilm.fragment.CategoryFragment;
 import com.nsw.a6vfilm.fragment.FragmentHelper;
 import com.nsw.a6vfilm.fragment.IndexFragment;
 import com.nsw.a6vfilm.fragment.MyFragment;
 
-public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
-
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     //底部3个Tab标志
     public static final String MENU_TAB_1 = "6vfilm.index";
@@ -27,8 +27,9 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         initView();
-
     }
 
     private void initView() {
