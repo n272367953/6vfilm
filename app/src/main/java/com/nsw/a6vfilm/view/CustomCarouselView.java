@@ -6,8 +6,10 @@ import android.graphics.Paint;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.Shape;
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +17,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.nsw.a6vfilm.model.CarouselMode;
+
+import java.util.List;
 
 /**
  * Created by niushuowen on 2016/5/12.
@@ -71,7 +78,7 @@ public class CustomCarouselView extends LinearLayout {
     /**
      * 初始化默认的指示器
      */
-    private void initIndicateDrawable(){
+    private void initIndicateDrawable() {
         Shape curShape = new OvalShape();
         Shape unCurShape = new OvalShape();
         indexCurDrawable = new ShapeDrawable(curShape);
@@ -82,29 +89,55 @@ public class CustomCarouselView extends LinearLayout {
         unCurPaint.setColor(Color.WHITE);
     }
 
-    public class CarouselAdapter extends PagerAdapter{
+    public class CarouselAdapter extends PagerAdapter {
 
-        public CarouselAdapter(){
+        private List<CarouselMode> list;
+        private Context context;
 
+
+        public CarouselAdapter(Context context,List list) {
+            this.list = list;
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            return super.instantiateItem(container, position);
+            SimpleDraweeView sdv = new SimpleDraweeView(context);
+            CarouselMode mode = list.get(position);
+            if(!TextUtils.isEmpty(mode.getImgUrl())){
+                sdv.setImageURI(Uri.parse(mode.getImgUrl()));
+            }
+            sdv.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setOnItemClick();
+                }
+            });
+            return list.get(position);
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return list == null ? 0 : list.size();
         }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return false;
         }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        public void setOnItemClick(CarouselItemOnClickListener listener){
+                listener.onItemClick();
+        }
     }
 
-
+    public interface CarouselItemOnClickListener{
+        public void onItemClick();
+    }
 
 }
 
