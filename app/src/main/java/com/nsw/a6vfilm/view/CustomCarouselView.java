@@ -41,9 +41,12 @@ public class CustomCarouselView extends LinearLayout {
      */
     private ShapeDrawable indexUnCurDrawable;
 
+    private static final int CUR_CLOLOR = Color.BLACK;
+    private static final int UNCUR_CLOLOR = Color.BLUE;
+
 
     public CustomCarouselView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public CustomCarouselView(Context context, AttributeSet attrs) {
@@ -53,6 +56,7 @@ public class CustomCarouselView extends LinearLayout {
     }
 
     private void init(Context context) {
+        setBackgroundColor(Color.BLUE);
         setOrientation(super.VERTICAL);
         viewPager = new ViewPager(context);
         LinearLayout.LayoutParams pagerParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -85,34 +89,47 @@ public class CustomCarouselView extends LinearLayout {
         indexUnCurDrawable = new ShapeDrawable(unCurShape);
         Paint curPaint = indexCurDrawable.getPaint();
         Paint unCurPaint = indexUnCurDrawable.getPaint();
-        curPaint.setColor(Color.BLUE);
-        unCurPaint.setColor(Color.WHITE);
+        curPaint.setColor(CUR_CLOLOR);
+        unCurPaint.setColor(UNCUR_CLOLOR);
     }
 
-    public class CarouselAdapter extends PagerAdapter {
+    public void setAdapter(CarouselAdapter adapter){
+        viewPager.setAdapter(adapter);
+    }
+
+    public static class CarouselAdapter extends PagerAdapter {
 
         private List<CarouselMode> list;
         private Context context;
+        private CarouselItemOnClickListener onItemClickListener;
 
 
-        public CarouselAdapter(Context context,List list) {
+        public CarouselAdapter(Context context, List list) {
+
+            this.context = context;
             this.list = list;
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            SimpleDraweeView sdv = new SimpleDraweeView(context);
+        public Object instantiateItem(final ViewGroup container, final int position) {
+            final SimpleDraweeView sdv = new SimpleDraweeView(context);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            sdv.setLayoutParams(params);
+            sdv.setBackgroundColor(Color.BLACK);
             CarouselMode mode = list.get(position);
-            if(!TextUtils.isEmpty(mode.getImgUrl())){
+            if (!TextUtils.isEmpty(mode.getImgUrl())) {
                 sdv.setImageURI(Uri.parse(mode.getImgUrl()));
             }
             sdv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setOnItemClick();
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(container, v, position);
+                    }
                 }
             });
-            return list.get(position);
+            container.addView(sdv);
+            return sdv;
         }
 
         @Override
@@ -122,7 +139,7 @@ public class CustomCarouselView extends LinearLayout {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return false;
+            return view == object;
         }
 
         @Override
@@ -130,13 +147,25 @@ public class CustomCarouselView extends LinearLayout {
             super.destroyItem(container, position, object);
         }
 
-        public void setOnItemClick(CarouselItemOnClickListener listener){
-                listener.onItemClick();
+        public void setCarouselModeList(List<CarouselMode> list){
+            this.list = list;
+        }
+
+        /**
+         * set the single view click listener
+         *
+         * @param listener
+         */
+        public void setOnItemClickListener(CarouselItemOnClickListener listener) {
+            this.onItemClickListener = listener;
         }
     }
 
-    public interface CarouselItemOnClickListener{
-        public void onItemClick();
+    /**
+     * an interface ,the method onItemClick() will be invoked when click the carouselView item
+     */
+    public interface CarouselItemOnClickListener {
+        public void onItemClick(ViewGroup container, View view, int position);
     }
 
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 import android.support.v7.widget.Toolbar;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.nsw.a6vfilm.fragment.CategoryFragment;
 import com.nsw.a6vfilm.fragment.FragmentHelper;
 import com.nsw.a6vfilm.fragment.IndexFragment;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
