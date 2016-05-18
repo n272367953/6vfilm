@@ -33,11 +33,11 @@ public class IndexFragment extends Fragment {
     private CustomCarouselView.CarouselAdapter adapter;
 
     public static String[] images = new String[]{
-            "http://g.hiphotos.baidu.com/image/pic/item/0e2442a7d933c895f7056f7ad31373f0820200b3.jpg",
-            "http://g.hiphotos.baidu.com/image/pic/item/bd3eb13533fa828b207b80edff1f4134970a5a67.jpg",
-            "http://g.hiphotos.baidu.com/image/pic/item/d50735fae6cd7b89206f2b760d2442a7d8330ec7.jpg",
-            "http://h.hiphotos.baidu.com/image/pic/item/14ce36d3d539b600cd9258b5eb50352ac65cb750.jpg",
-            "http://b.hiphotos.baidu.com/image/pic/item/aa64034f78f0f7365edc7d030855b319ebc41395.jpg"
+            "http://tu.66vod.net/2015/3841.jpg",
+            "http://tu.66vod.net/2015/4286.jpg",
+            "http://tu.66vod.net/2015/4169.jpg",
+            "http://tu.66vod.net/2015/3180.jpg",
+            "http://tu.66vod.net/2015/4071.jpg"
     };
 
     private Handler handler = new Handler();
@@ -51,28 +51,20 @@ public class IndexFragment extends Fragment {
     }
 
 
+private CustomCarouselView car_view;
 
     private void initView(View view) {
 //        listview = (PagingListView) view.findViewById(R.id.listview);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         container = (FrameLayout) view.findViewById(R.id.container);
         refreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimary,R.color.colorPrimary,R.color.colorPrimary);
-//        refreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
-//                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
-//                        .getDisplayMetrics()));
-//        refreshLayout.setRefreshing(true);
+////        refreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
+////                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+////                        .getDisplayMetrics()));
+////        refreshLayout.setRefreshing(true);
         refreshLayout.setOnRefreshListener(onRefreshListener);
-        CustomCarouselView car_view = new CustomCarouselView(getActivity());
-        adapter = new CustomCarouselView.CarouselAdapter(getActivity(),carouselList);
-        adapter.setOnItemClickListener(new CustomCarouselView.CarouselItemOnClickListener() {
-            @Override
-            public void onItemClick(ViewGroup container, View view, int position) {
-                T.showShort(getActivity(),"点击了");
-            }
-        });
-        car_view.setAdapter(adapter);
-
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(800,500);
+        car_view = new CustomCarouselView(getActivity());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         car_view.setLayoutParams(params);
         container.addView(car_view);
         
@@ -86,8 +78,17 @@ public class IndexFragment extends Fragment {
               mode.setImgUrl(images[i]);
               carouselList.add(mode);
           }
-        adapter.setCarouselModeList(carouselList);
-        adapter.notifyDataSetChanged();
+        adapter = new CustomCarouselView.CarouselAdapter(getActivity(),carouselList);
+        adapter.setOnItemClickListener(new CustomCarouselView.CarouselItemOnClickListener() {
+            @Override
+            public void onItemClick(ViewGroup container, View view, int position) {
+
+            }
+        });
+        car_view.setAdapter(adapter);
+
+//        adapter.setCarouselModeList(carouselList);
+//        adapter.notifyDataSetChanged();
     }
 
     @Override
