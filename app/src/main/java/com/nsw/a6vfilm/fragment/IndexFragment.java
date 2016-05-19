@@ -31,6 +31,7 @@ public class IndexFragment extends Fragment {
     private List<CarouselMode> carouselList;
     private FrameLayout container;
     private CustomCarouselView.CarouselAdapter adapter;
+    private View indexSecondHeader;
 
     public static String[] images = new String[]{
             "http://tu.66vod.net/2015/3841.jpg",
@@ -67,7 +68,8 @@ private CustomCarouselView car_view;
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         car_view.setLayoutParams(params);
         container.addView(car_view);
-        
+        indexSecondHeader = getActivity().getLayoutInflater().inflate(R.layout.index_second_header,car_view,false);
+        car_view.addView(indexSecondHeader);
     }
 
     private void initData() {
@@ -85,6 +87,17 @@ private CustomCarouselView car_view;
 
             }
         });
+        car_view.setScrollerListener(new CustomCarouselView.CarouselScrollerListenrer() {
+            @Override
+            public void startScroller() {
+                refreshLayout.setEnabled(false);
+            }
+
+            @Override
+            public void endsScroller() {
+                refreshLayout.setEnabled(true);
+            }
+        });
         car_view.setAdapter(adapter);
 
 //        adapter.setCarouselModeList(carouselList);
@@ -100,6 +113,12 @@ private CustomCarouselView car_view;
         @Override
         public void onRefresh() {
             T.showShort(getActivity(),"正在刷新，请稍等。。。。");
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                   refreshLayout.setRefreshing(false);
+                }
+            },3000);
         }
     };
 }

@@ -7,4 +7,9 @@
     <color name="nsw_grey">#9c9c9c</color>
     <color name="nsw_light_grey">#EEEEEE</color>
     <color name="white">#ffffff</color>
+    <color name="light_blue">#4876FF</color>
+    <color name="yellow">#EEC900</color>
+    <color name="green">#2E8B57</color>
+    <color name="pink">#CD3333</color>
+    <color name="text_black">#ff000000</color>
 </resources>

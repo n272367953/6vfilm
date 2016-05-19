@@ -43,6 +43,8 @@ public class CustomCarouselView extends LinearLayout {
 
     private List<ImageView> indicatorList;
 
+    private CarouselScrollerListenrer carouselScrollerListenrer;
+
     /**
      * 指示器小圆点数量
      */
@@ -96,16 +98,35 @@ public class CustomCarouselView extends LinearLayout {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+//              Log.i("Scoller","onPageScrolled");
             }
 
             @Override
             public void onPageSelected(int position) {
                 updateIndicate(position);
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+                switch (state){
+                    case ViewPager.SCROLL_STATE_IDLE:
+//                        Log.i("Scoller","onPageScrollStateChanged:  SCROLL_STATE_IDLE");
+                        if(carouselScrollerListenrer !=null){
+                            carouselScrollerListenrer.endsScroller();
+                        }
+                        break;
+                    case ViewPager.SCROLL_STATE_DRAGGING:
+//                        Log.i("Scoller","onPageScrollStateChanged:  SCROLL_STATE_DRAGGING");
+                        if(carouselScrollerListenrer !=null){
+                            carouselScrollerListenrer.startScroller();
+                        }
+                        break;
+                    case ViewPager.SCROLL_STATE_SETTLING:
+//                        Log.i("Scoller","onPageScrollStateChanged:  SCROLL_STATE_SETTLING");
+                        break;
+                }
+
 
             }
         });
@@ -164,6 +185,10 @@ public class CustomCarouselView extends LinearLayout {
 
     }
 
+    public void setScrollerListener(CarouselScrollerListenrer listener) {
+        this.carouselScrollerListenrer = listener;
+    }
+
     /**
      * 初始化默认的指示器Drawable
      */
@@ -179,7 +204,7 @@ public class CustomCarouselView extends LinearLayout {
     }
 
     /**
-     * 更新指示器
+     * 初始化指示器
      *
      * @param context
      * @param totalPages
@@ -215,6 +240,10 @@ public class CustomCarouselView extends LinearLayout {
         return (int) (dipValue * scale + 0.5f);
     }
 
+    /**
+     * 更新指示器
+     * @param position
+     */
     private void updateIndicate(int position) {
         if (indicatorNum > 0) {
             setCompatBackground(indicatorList.get(lastIndexPosition), indexUnCurDrawable);
@@ -236,10 +265,8 @@ public class CustomCarouselView extends LinearLayout {
     private int startY;
 
 
-
-
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
 
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -250,15 +277,18 @@ public class CustomCarouselView extends LinearLayout {
                 int curX = (int) ev.getRawX();
                 int curY = (int) ev.getRawY();
                 int deltaX = Math.abs(curX - startX);
-                int deltaY = Math.abs(curY - startY);
+                int deltaY = curY - startY;
 
-                Log.i("DELTA","deltaX: "+deltaX + "\ndeltaY: "+deltaY);
-                if(deltaX > deltaY ){
-                   getParent().getParent().requestDisallowInterceptTouchEvent(true);
+                Log.i("DELTA", "deltaX: " + deltaX + "\ndeltaY: " + deltaY);
+                if (deltaY > deltaX) {
+//                    getParent().getParent().requestDisallowInterceptTouchEvent(false);
                 }
                 break;
+            case MotionEvent.ACTION_CANCEL:
+                Log.i("DELTA", "Cancel  触发了");
+                break;
         }
-        return super.onInterceptTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
 
     public void setAdapter(CarouselAdapter adapter) {
@@ -337,7 +367,14 @@ public class CustomCarouselView extends LinearLayout {
      * an interface ,the method onItemClick() will be invoked when click the carouselView item
      */
     public interface CarouselItemOnClickListener {
-        public void onItemClick(ViewGroup container, View view, int position);
+        void onItemClick(ViewGroup container, View view, int position);
+    }
+
+    public interface CarouselScrollerListenrer {
+        void startScroller();
+
+        void endsScroller();
+
     }
 
 }
