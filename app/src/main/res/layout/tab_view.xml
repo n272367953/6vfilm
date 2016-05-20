@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<RadioGroup
-    android:layout_marginTop="10dp"
-    android:layout_gravity="center_horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
-    <RadioButton
-        android:padding="10dp"
-        android:background="@drawable/tab_bg_selector"
-        android:layout_width="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="按国家"
-        android:textColor="@color/white"
-        android:button="@null" />
-    <RadioButton
-        android:padding="10dp"
-        android:background="@drawable/tab_bg_selector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="按种类"
-        android:textColor="@color/colorPrimary"
-        android:button="@null" />
-    </RadioGroup>
+        android:background="@color/white">
+        <RadioGroup
+            android:id="@+id/id_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/id_tab_1"
+                style="@style/TabButtonStyle"
+                android:text="@string/tab_button_by_country" />
+
+            <RadioButton
+                android:id="@+id/id_tab_2"
+                style="@style/TabButtonStyle"
+                android:text="@string/tab_button_by_category" />
+        </RadioGroup>
+
+        <View
+            android:layout_gravity="bottom"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/nsw_grey" />
+
+    </FrameLayout>
+
 
     <android.support.v4.view.ViewPager
-        android:layout_marginTop="5dp"
-        android:background="@color/pink"
+        android:id="@+id/id_tab_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"
+        android:background="@color/transparent" />
 </LinearLayout>

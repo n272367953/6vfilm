@@ -7,4 +7,10 @@
     <string name="bottom_navigator_text_my">我的</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="tab_button_by_country">按国家</string>
+    <string name="tab_button_by_category">按种类</string>
+    <string name="cur_month_ranking">当月排行</string>
+    <string name="cur_year_ranking">2016排行</string>
+    <string name="film_special">电影专题</string>
+    <string name="come_click_me">来点我哟</string>
 </resources>

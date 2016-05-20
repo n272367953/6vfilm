@@ -22,7 +22,7 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="15dp"
                 android:background="@color/light_blue"
                 android:padding="10dp"
                 android:src="@drawable/index_button_ranking"
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text=" 当月排行"
+                android:text="@string/cur_month_ranking"
                 android:textColor="@color/text_black"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -50,7 +50,7 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="15dp"
                 android:background="@color/yellow"
                 android:padding="6dp"
                 fresco:actualImageScaleType="centerInside"
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="2016排行"
+                android:text="@string/cur_year_ranking"
                 android:textColor="@color/text_black"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -78,7 +78,7 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="15dp"
                 android:background="@color/green"
                 android:padding="10dp"
                 fresco:actualImageScaleType="fitCenter"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="电影专题"
+                android:text="@string/film_special"
                 android:textColor="@color/text_black"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -106,7 +106,7 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="15dp"
                 android:background="@color/pink"
                 android:padding="10dp"
                 fresco:actualImageScaleType="fitCenter"
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="来点我哟"
+                android:text="@string/come_click_me"
                 android:textColor="@color/text_black"
                 android:textSize="15dp" />
         </LinearLayout>

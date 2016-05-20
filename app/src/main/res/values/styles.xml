@@ -18,7 +18,20 @@
         <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
-        <item name="android:textColor">@color/bottom_tap_tv_color_selector</item>
+        <item name="android:textColor">@color/bottom_tab_tv_color_selector</item>
         <item name="android:textSize">13sp</item>
     </style>
+
+<!--tab 按钮样式-->
+    <style name="TabButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/tab_tv_color_selector</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:background">@drawable/tab_bg_selector</item>
+    </style>
+
+
 </resources>

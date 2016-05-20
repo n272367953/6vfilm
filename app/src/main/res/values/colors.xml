@@ -12,4 +12,5 @@
     <color name="green">#2E8B57</color>
     <color name="pink">#CD3333</color>
     <color name="text_black">#ff000000</color>
+    <color name="transparent">#00000000</color>">
 </resources>
