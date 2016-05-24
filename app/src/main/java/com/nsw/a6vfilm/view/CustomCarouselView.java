@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.nsw.a6vfilm.model.CarouselMode;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,16 +111,16 @@ public class CustomCarouselView extends LinearLayout {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                switch (state){
+                switch (state) {
                     case ViewPager.SCROLL_STATE_IDLE:
 //                        Log.i("Scoller","onPageScrollStateChanged:  SCROLL_STATE_IDLE");
-                        if(carouselScrollerListenrer !=null){
+                        if (carouselScrollerListenrer != null) {
                             carouselScrollerListenrer.endsScroller();
                         }
                         break;
                     case ViewPager.SCROLL_STATE_DRAGGING:
 //                        Log.i("Scoller","onPageScrollStateChanged:  SCROLL_STATE_DRAGGING");
-                        if(carouselScrollerListenrer !=null){
+                        if (carouselScrollerListenrer != null) {
                             carouselScrollerListenrer.startScroller();
                         }
                         break;
@@ -167,14 +169,10 @@ public class CustomCarouselView extends LinearLayout {
             @Override
             public void run() {
                 int curIndex = viewPager.getCurrentItem();
-                if (curIndex == indicatorNum - 1) {
-                    viewPager.setCurrentItem(0);
-                } else {
-                    viewPager.setCurrentItem(curIndex + 1);
-                }
+                viewPager.setCurrentItem(curIndex + 1);
                 autoScrollCarousel();
             }
-        }, 3000);
+        }, 5000);
     }
 
     private void initTitleTextParams(FrameLayout.LayoutParams params) {
@@ -184,6 +182,31 @@ public class CustomCarouselView extends LinearLayout {
         titleText.setMaxLines(1);
 
     }
+
+    /**
+     * 设置广告显示控件滑动的速度
+     *
+     * @param duration
+     *            间隔时间
+     */
+    private void setViewPagerScrollSpeed(int duration) {
+        try {
+            Field fieldScroller = null;
+            fieldScroller = ViewPager.class.getDeclaredField("mScroller");
+            fieldScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(viewPager.getContext(), new AccelerateInterpolator());
+            scroller.setDuration(duration);
+            fieldScroller.set(viewPager, scroller);
+        } catch (NoSuchFieldException e) {
+
+        } catch (IllegalArgumentException e) {
+
+        } catch (IllegalAccessException e) {
+
+        }
+    }
+
+
 
     public void setScrollerListener(CarouselScrollerListenrer listener) {
         this.carouselScrollerListenrer = listener;
@@ -242,9 +265,11 @@ public class CustomCarouselView extends LinearLayout {
 
     /**
      * 更新指示器
+     *
      * @param position
      */
     private void updateIndicate(int position) {
+        position = position % adapter.getListDataSize();
         if (indicatorNum > 0) {
             setCompatBackground(indicatorList.get(lastIndexPosition), indexUnCurDrawable);
             setCompatBackground(indicatorList.get(position), indexCurDrawable);
@@ -291,13 +316,22 @@ public class CustomCarouselView extends LinearLayout {
         return super.dispatchTouchEvent(ev);
     }
 
-    public void setAdapter(CarouselAdapter adapter) {
+    private CarouselAdapter adapter;
+
+
+    public void setAdapter(CarouselAdapter adapter){
+        setAdapter(adapter,500);
+    }
+
+    public void setAdapter(CarouselAdapter adapter, int duration) {
+        this.adapter = adapter;
         viewPager.setAdapter(adapter);
-        indicatorNum = adapter.getCount();
+        setViewPagerScrollSpeed(duration);
+        indicatorNum = adapter.getListDataSize();
         if (indicatorNum > 0) {
             initIndicates(context, indicatorNum, 0);
         }
-//        autoScrollCarousel();
+        autoScrollCarousel();
     }
 
     public static class CarouselAdapter extends PagerAdapter {
@@ -315,10 +349,13 @@ public class CustomCarouselView extends LinearLayout {
         @Override
         public Object instantiateItem(final ViewGroup container, final int position) {
             final SimpleDraweeView sdv = new SimpleDraweeView(context);
+            if (sdv.getParent() != null) {
+                container.removeView(sdv);
+            }
             sdv.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
             sdv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 //            sdv.setAspectRatio(10f);
-            CarouselMode mode = list.get(position);
+            CarouselMode mode = list.get(position % list.size());
             if (!TextUtils.isEmpty(mode.getImgUrl())) {
                 sdv.setImageURI(Uri.parse(mode.getImgUrl()));
             }
@@ -336,6 +373,10 @@ public class CustomCarouselView extends LinearLayout {
 
         @Override
         public int getCount() {
+            return Integer.MAX_VALUE;
+        }
+
+        public int getListDataSize() {
             return list == null ? 0 : list.size();
         }
 
@@ -374,7 +415,6 @@ public class CustomCarouselView extends LinearLayout {
         void startScroller();
 
         void endsScroller();
-
     }
 
 }

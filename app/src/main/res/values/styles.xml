@@ -5,11 +5,12 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
     </style>
 
-    <!--app底部导航栏按钮样式（RadioBox按钮）-->
-    <style name="AppBottomRadioBoxStyle">
+    <!--app底部导航栏按钮样式（Radiobutton按钮）-->
+    <style name="AppBottomRadioButtonStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>

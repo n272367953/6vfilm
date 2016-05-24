@@ -17,20 +17,20 @@
 
         <RadioButton
             android:id="@+id/index_radioBtn"
-            style="@style/AppBottomRadioBoxStyle"
+            style="@style/AppBottomRadioButtonStyle"
             android:checked="true"
             android:drawableTop="@drawable/bottom_film_selector"
             android:text="@string/button_navigator_text_index" />
 
         <RadioButton
             android:id="@+id/cate_radioBtn"
-            style="@style/AppBottomRadioBoxStyle"
+            style="@style/AppBottomRadioButtonStyle"
             android:drawableTop="@drawable/bottom_category_selector"
             android:text="@string/bottom_navigator_text_category" />
 
         <RadioButton
             android:id="@+id/my_radioBtn"
-            style="@style/AppBottomRadioBoxStyle"
+            style="@style/AppBottomRadioButtonStyle"
             android:drawableTop="@drawable/bottom_my_selector"
             android:text="@string/bottom_navigator_text_my" />
     </RadioGroup>

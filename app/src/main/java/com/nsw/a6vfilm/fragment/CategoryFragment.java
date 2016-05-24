@@ -36,6 +36,7 @@ public class CategoryFragment extends Fragment implements RadioGroup.OnCheckedCh
         tab_cate = (RadioButton) view.findViewById(R.id.id_tab_1);
         viewPager = (ViewPager) view.findViewById(R.id.id_tab_pager);
         CategroyPagerAdapter adapter = new CategroyPagerAdapter();
+
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
