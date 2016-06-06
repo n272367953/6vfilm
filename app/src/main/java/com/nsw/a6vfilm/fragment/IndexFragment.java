@@ -1,6 +1,7 @@
 package com.nsw.a6vfilm.fragment;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -67,9 +68,11 @@ public class IndexFragment extends Fragment {
 
     private void initView(View view) {
         titleStatusBarContainer = (LinearLayout) view.findViewById(R.id.title_status_bar_container);
-        statusBarBg = view.findViewById(status_bar_bg);
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) statusBarBg.getLayoutParams();
-        params.height = SystemUtils.getStatusBarHeight(getActivity());
+        if(Build.VERSION.SDK_INT >19){
+            statusBarBg = view.findViewById(status_bar_bg);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) statusBarBg.getLayoutParams();
+            params.height = SystemUtils.getStatusBarHeight(getActivity());
+        }
         listview = (PagingListView) view.findViewById(R.id.listview);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
 //        container = (FrameLayout) view.findViewById(R.id.container);
@@ -78,7 +81,7 @@ public class IndexFragment extends Fragment {
 ////        refreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
 ////                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
 ////                        .getDisplayMetrics()));
-////        refreshLayout.setRefreshing(true);
+////        refreshLayout.setRefreshing(true43);
         refreshLayout.setOnRefreshListener(onRefreshListener);
         car_view = new CustomCarouselView(getActivity());
 //        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);

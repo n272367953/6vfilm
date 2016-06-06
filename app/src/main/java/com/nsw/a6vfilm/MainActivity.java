@@ -29,21 +29,27 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        initView();
+        initView(savedInstanceState);
     }
 
-    private void initView() {
-        fmHelper = new FragmentHelper(this, getSupportFragmentManager(), R.id.main_container);
+    private void initView(Bundle savedInstanceState) {
+
         rg = (RadioGroup) findViewById(R.id.radioGroup);
         rg.setOnCheckedChangeListener(this);
-         //默认显示首页
-        fmHelper.switchFragment(MENU_TAB_1,new Intent(this,IndexFragment.class));
+        fmHelper = new FragmentHelper(this, getSupportFragmentManager(), R.id.main_container);
+        if(savedInstanceState == null){
+            //默认显示首页
+            fmHelper.switchFragment(MENU_TAB_1,new Intent(this,IndexFragment.class));
+        }else{
+            fmHelper.restoreFromBundle(savedInstanceState);
+        }
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        fmHelper.saveState(outState);
+        fmHelper.saveStateSimple(outState);
     }
 
     @Override
